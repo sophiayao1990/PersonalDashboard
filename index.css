@@ -1,0 +1,115 @@
+/* General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Unna', serif;
+    box-sizing: border-box;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+ul {
+    list-style: none;
+}
+
+/* Diaplay */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+    /* background-color: aqua; */
+}
+.sticker {
+    display: flex;
+}
+#time {
+    text-align: center;
+    margin-bottom: 5em;
+    /* background-color: blueviolet; */
+}
+
+/* Background */
+#main {
+    box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.3);
+    background: no-repeat;
+    background-size: cover;
+    background-position: center;
+    transition: all 2s;
+}
+
+/* Crypto */
+.crypto_stock {
+    width: 250px;
+    margin: .5em;
+    /* padding: 2em; */
+    background: url(images/sticker.png);
+    background-size: cover;
+}
+#eth,
+#btc,
+#aapl,
+#tsla {
+    display: flex;
+}
+.col {
+    flex: 1;
+}
+.crypto_stock legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.crypto_stock fieldset {
+    margin: 2em 1em 0 1em;
+    padding: .4em 0 .4em 1em;
+    border: 1px dashed black;
+    transform: rotate(-3deg);
+}
+.crypto,
+.stock {
+    margin-bottom: 1em;
+}
+
+
+
+
+/* Todos */
+#todo-list {
+    font-size: 1.2rem;
+    /* background-color: aqua; */
+}
+#todo-form {
+    margin-top: 1em;
+    height: 25px;
+}
+#todo-input {
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: .2em .5em;
+}
+#todo-form button {
+    border: 1px solid blueviolet;
+    padding: .2em 1em;
+    background-color: blueviolet;
+    color: white;
+    font-weight: 800;
+    border-radius: 3px;
+}
+
+/* Weather */
+
+
+
+
+/* Time */
+#time {
+    font-size: 5rem;
+    font-weight: 400;
+    text-shadow: 0.4 0.4 0.4 red;
+}

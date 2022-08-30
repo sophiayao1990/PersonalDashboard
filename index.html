@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
+    <title>Personal Dashboard</title>
+</head>
+<body>
+    <main id="main">
+        <div class="top">
+            <div class="sticker">
+                <div class="crypto_stock">
+                    <div class="crypto">
+                        <fieldset>
+                            <legend>Crypto</legend>
+                            <div id="btc"></div>
+                            <div id="eth"></div>
+                        </fieldset>
+                    </div>
+                    <div class="stock">
+                        <fieldset>
+                            <legend>Stock</legend>
+                            <div id="aapl"></div>
+                            <div id="tsla"></div>
+                        </fieldset>
+                    </div>  
+                </div>
+                <div class="todo crypto_stock">
+                    <fieldset>
+                        <legend>To Do List</legend>
+                        <ul id="todo-list">
+                            <!-- <li><input type="checkbox" name="" id=""><label for="">Test</label></li> -->
+                        </ul>
+                        <form id="todo-form">
+                            <input type="text" id="todo-input" placeholder="Add your new todo">
+                            <button type="submit">+</button>
+                        </form>
+                    </fieldset> 
+                    
+                </div>
+            </div>
+            <div id="weather"></div>
+        </div>
+        <h2 id="time"></h2>
+    </main>    
+    <script src="index.js"></script>
+</body>
+</html>
