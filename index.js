@@ -32,119 +32,73 @@ setInterval(function() {
 
 
 //Crypto
-function getCurrentCrypto() {
-    fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
+function getCurrentCrypto(coinName, coinElementId) {
+    fetch(`https://api.coingecko.com/api/v3/coins/${coinName}`)
     .then (res => {
         if (!res.ok) {
-            throw Error("Cannot get the bitcoin data");
+            throw Error(`Cannot get the ${coinName} data`);
         }
         return res.json();
     })
     .then(data => {
-        let btcChange24h = data.market_data.price_change_percentage_24h;
+        let change24h = data.market_data.price_change_percentage_24h;
 
-        btc.innerHTML=`
-            <h4 id="btc-name" class="col"><a href=${data.links.homepage[0]} target="_blank">${data.name}</a></h4>
-            <p id="btc-price" class="col">$${data.market_data.current_price.usd.toFixed(2)}</p>
-            <span id="btc-change24h" class="col">${btcChange24h.toFixed(2)}%</span>        
+        document.getElementById(coinElementId).innerHTML=`
+            <h4 class="col"><a href=${data.links.homepage[0]} target="_blank">${data.name}</a></h4>
+            <p class="col">$${data.market_data.current_price.usd.toFixed(2)}</p>
+            <span id='${coinName}-change24h' class="col">${change24h.toFixed(2)}%</span>        
         `
-        const btcChange = document.getElementById('btc-change24h');
+        const Change = document.getElementById(`${coinName}-change24h`);
 
-        if(btcChange24h > 0 ) {
-            btcChange.style.color = "green";
-        } else if(btcChange24h < 0){
-            btcChange.style.color = "red";
+        if(change24h > 0 ) {
+            Change.style.color = "green";
+        } else if(change24h < 0){
+            Change.style.color = "red";
         } else {
-            btcChange.style.color = "black";
+            Change.style.color = "black";
         }
     })
-    .catch(err => console.error(err));
-
-
-    fetch('https://api.coingecko.com/api/v3/coins/ethereum')
-    .then (res => {
-        if (!res.ok) {
-            throw Error("Cannot get the ethereum data");
-        }
-        return res.json();
-    })
-    .then(data => {
-        let ethChange24h = data.market_data.price_change_percentage_24h;
-
-        eth.innerHTML=`
-            <h4 id="eth-name" class="col"><a href=${data.links.homepage[0]} target="_blank">${data.name}</a></h4>
-            <p id="eth-price" class="col">$${data.market_data.current_price.usd.toFixed(2)}</p>
-            <span id="eth-change24h" class="col">${ethChange24h.toFixed(2)}%</span>        
-        `
-        const ethChange = document.getElementById('eth-change24h');
-
-        if(ethChange24h > 0 ) {
-            ethChange.style.color = "green";
-        } else if(ethChange24h < 0){
-            ethChange.style.color = "red";
-        } else {
-            ethChange.style.color = "black";
-        }
- 
-        })
-    .catch(err => console.error(err));
-    
+    .catch(err => console.error(err));    
 }
 
-getCurrentCrypto();
-setInterval(getCurrentCrypto, 50000)
+getCurrentCrypto("bitcoin","btc");
+getCurrentCrypto("ethereum","eth");
+setInterval(getCurrentCrypto("bitcoin","btc"), 50000)
+setInterval(getCurrentCrypto("ethereum","eth"), 50000)
 
-fetch(`http://api.marketstack.com/v1/intraday?access_key=803f599c990fd6a341af3c4c79f174b8&symbols=AAPL`)
+function getCurrentStock(stockName, stockElementId) {
+    fetch(`http://api.marketstack.com/v1/intraday?access_key=803f599c990fd6a341af3c4c79f174b8&symbols=${stockName}`)
     .then (res => {
         if (!res.ok) {
-            throw Error("Cannot get the stock data");
+            throw Error(`Cannot get the ${stockName} data`);
         }
         return res.json();
     })
     .then(data => {
         console.log(data)
-
-        const aaplChange24h = (data.data[0].close - data.data[0].open)/data.data[0].open
-        aapl.innerHTML=`
-            <h4 id="aapl-name" class="col">${data.data[0].symbol}</h4>
-            <p id="aapl-price" class="col">$${data.data[0].open.toFixed(2)}</p>
-            <span id="aapl-change24h" class="col">${aaplChange24h.toFixed(2)}%</span>        
+        const change24h = (data.data[0].close - data.data[0].open)/data.data[0].open
+        document.getElementById(stockElementId).innerHTML=`
+            <h4 class="col">${data.data[0].symbol}</h4>
+            <p class="col">$${data.data[0].open.toFixed(2)}</p>
+            <span id="${stockName}-change24h" class="col">${change24h.toFixed(2)}%</span>        
         `
-        const aaplChange = document.getElementById('aapl-change24h');
+        const change = document.getElementById(`${stockName}-change24h`);
 
-        if(aaplChange24h > 0 ) {
-            aaplChange.style.color = "green";
-        } else if(aaplChange24h < 0){
-            aaplChange.style.color = "red";
+        if(change24h > 0 ) {
+            change.style.color = "green";
+        } else if(change24h < 0){
+            change.style.color = "red";
         } else {
-            aaplChange.style.color = "black";
+            change.style.color = "black";
         }
     })
+}
 
-    fetch(`http://api.marketstack.com/v1/intraday?access_key=803f599c990fd6a341af3c4c79f174b8&symbols=TSLA`)
-    .then (res => {
-        if (!res.ok) {
-            throw Error("Cannot get the stock data");
-        }
-        return res.json();
-    })
-    .then(data => {
-        const tslaChange24h = (data.data[0].close - data.data[0].open)/data.data[0].open
-        tsla.innerHTML=`
-            <h4 id="tsla-name" class="col">${data.data[0].symbol}</h4>
-            <p id="tsla-price" class="col">$${data.data[0].open.toFixed(2)}</p>
-            <span id="tsla-change24h" class="col">${tslaChange24h.toFixed(2)}%</span>        
-        `
-        const tslaChange = document.getElementById('tsla-change24h');
+getCurrentStock("AAPL","aapl");
+getCurrentStock("TSLA","tsla");
+setInterval(getCurrentStock("AAPL","aapl"), 50000)
+setInterval(getCurrentStock("TSLA","tsla"), 50000)
 
-        if(tslaChange24h > 0 ) {
-            tslaChange.style.color = "green";
-        } else if(tslaChange24h < 0){
-            tslaChange.style.color = "red";
-        } else {
-            tslaChange.style.color = "black";
-        }
-    })
 
 
     
