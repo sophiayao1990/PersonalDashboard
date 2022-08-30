@@ -9,8 +9,6 @@ const btc = document.getElementById('btc');
 const aapl = document.getElementById('aapl');
 const tsla = document.getElementById('tsla');
 
-
-
 const weather = document.getElementById('weather');
 const todoList = document.getElementById('todo-list');
 const todoInput = document.getElementById('todo-input');
