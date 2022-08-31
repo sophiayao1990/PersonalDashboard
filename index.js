@@ -4,16 +4,16 @@
     // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API#getting_the_current_position
     // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
 // crypto: https://www.coingecko.com/api/documentations/v3#/
-const eth = document.getElementById('eth');
-const btc = document.getElementById('btc');
-const aapl = document.getElementById('aapl');
-const tsla = document.getElementById('tsla');
+
+
+// Stock percentage change calculation????
+// todo fetch real data, delete?
+
 
 const weather = document.getElementById('weather');
 const todoList = document.getElementById('todo-list');
 const todoInput = document.getElementById('todo-input');
 const todoForm = document.getElementById('todo-form');
-const time = document.getElementById('time');
 const main = document.getElementById('main')
 
 //background
@@ -42,25 +42,23 @@ function getCurrentCrypto(coinName, coinElementId) {
     })
     .then(data => {
         let change24h = data.market_data.price_change_percentage_24h;
-
         document.getElementById(coinElementId).innerHTML=`
             <h4 class="col"><a href=${data.links.homepage[0]} target="_blank">${data.name}</a></h4>
             <p class="col">$${data.market_data.current_price.usd.toFixed(2)}</p>
             <span id='${coinName}-change24h' class="col">${change24h.toFixed(2)}%</span>        
         `
-        const Change = document.getElementById(`${coinName}-change24h`);
+        const change = document.getElementById(`${coinName}-change24h`);
 
         if(change24h > 0 ) {
-            Change.style.color = "green";
+            change.style.color = "green";
         } else if(change24h < 0){
-            Change.style.color = "red";
+            change.style.color = "red";
         } else {
-            Change.style.color = "black";
+            change.style.color = "black";
         }
     })
     .catch(err => console.error(err));    
 }
-
 getCurrentCrypto("bitcoin","btc");
 getCurrentCrypto("ethereum","eth");
 setInterval(getCurrentCrypto("bitcoin","btc"), 50000)
@@ -75,7 +73,7 @@ function getCurrentStock(stockName, stockElementId) {
         return res.json();
     })
     .then(data => {
-        console.log(data)
+        // console.log(data)
         const change24h = (data.data[0].close - data.data[0].open)/data.data[0].open
         document.getElementById(stockElementId).innerHTML=`
             <h4 class="col">${data.data[0].symbol}</h4>
@@ -93,7 +91,6 @@ function getCurrentStock(stockName, stockElementId) {
         }
     })
 }
-
 getCurrentStock("AAPL","aapl");
 getCurrentStock("TSLA","tsla");
 setInterval(getCurrentStock("AAPL","aapl"), 50000)
@@ -101,13 +98,9 @@ setInterval(getCurrentStock("TSLA","tsla"), 50000)
 
 
 
-    
-
-
-
 //Weather
 navigator.geolocation.getCurrentPosition(position => {
-    fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=957f77f95dfed1a4157a09f091cd5673&units=metric`)
         .then(res => {
             if (!res.ok) {
                 throw Error('Cannot get the weather data')
@@ -119,21 +112,20 @@ navigator.geolocation.getCurrentPosition(position => {
             weather.innerHTML=`
             <img src=${weatherIconUrl} />
             <p>${data.weather[0].main}</p>
-            <p>${Math.round(data.main.temp)} ºC</p>
-            <p>${data.name}</p>
+            <p class="temp">${Math.round(data.main.temp)}ºC</p>
+            <p><i class='fas fa-map-marker-alt'></i> ${data.name}</p>
             `
         })
         .catch(err => console.log(err))
 })
-// fetch(`http://api.openweathermap.org/data/2.5/weather?q=https://api.openweathermap.org/data/2.5/weather?lat={37}&lon={-122}&appid={957f77f95dfed1a4157a09f091cd5673}`)
-//     .then(res => res.json())
-//     .then(data => console.log(data))
 
 //time
 function getCurrentTime() {
     let d = new Date();
     let currentTime = d.toLocaleTimeString('en-us', {timeStyle: 'medium'});
-    time.textContent = currentTime;
+    let [time, amOrPm] = currentTime.split(' ')
+    document.getElementById("time").textContent = time;
+    document.getElementById("ampm").textContent = amOrPm;    
 }
 getCurrentTime()
 setInterval(getCurrentTime, 1000)
