@@ -136,43 +136,148 @@ let todoArr = [];
 function renderTodo() {
     todoList.innerHTML = '';
     for (let todo of todoArr) {
-        todoList.innerHTML += `
-        <li><input type="checkbox">   ${todo.title}</li>
-        `
+        let todoId = todo._id;
+        todoList.innerHTML += `<li><input type="checkbox">  ${todo.description} <button onclick="deleteTodo('${todoId}')"><i class="fa-solid fa-trash-can"></i></button></li>`
+        console.log(todo.description)
+
     } 
 }
 
-fetch('https://jsonplaceholder.typicode.com/todos')
-    .then(res => res.json())
-    .then(data => {
-      todoArr = data.slice(0, 4);
-      renderTodo();
-  })
 
+//GET all todos
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzEwYmRiODYxMzFkZTAwMTc0NzdmZmEiLCJpYXQiOjE2NjIwNDIzMTF9.lJU9dhFVxEnbdkoYGOvFAx8lWQcjgUr1kJz7-toHUeo");
+myHeaders.append("Content-Type", "application/json");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api-nodejs-todolist.herokuapp.com/task", requestOptions)
+  .then(response => response.json())
+  .then(result => {
+    console.log(result.data)
+    todoArr = result.data;
+    renderTodo();
+    })
+  .catch(error => console.log('error', error));
+
+//add new todo
 todoForm.addEventListener('submit', function(e){
     e.preventDefault()
-    const todoInputValue = todoInput.value;
-    const data = {
-        title: todoInputValue
-    }
-    console.log(data)
+    var raw = JSON.stringify({
+        "description": `${todoInput.value}`
+      });
+    
+    var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+    };
 
-    const options = {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }
+    fetch("https://api-nodejs-todolist.herokuapp.com/task", requestOptions)
+    .then(response => response.json())
+    .then(result => {
 
-    fetch('https://jsonplaceholder.typicode.com/todos', options)
-        .then(res => res.json())
-        .then(todo => {
-            todoArr.push(todo)
-            renderTodo()
-            todoForm.reset()
-        })
+        console.log(result)
+        todoArr.push(result.data)
+        console.log(todoArr);
+        renderTodo()
+        todoForm.reset()
+    })
+    .catch(error => console.log('error', error));
 })
 
 
 
+// DEL todo by ID
+function deleteTodo(id) {
+    var requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+    fetch(`https://api-nodejs-todolist.herokuapp.com/task/${id}`, requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+}
+
+//GET task by ID
+// var myHeaders = new Headers();
+// myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzEwYmRiODYxMzFkZTAwMTc0NzdmZmEiLCJpYXQiOjE2NjIwNDIzMTF9.lJU9dhFVxEnbdkoYGOvFAx8lWQcjgUr1kJz7-toHUeo");
+// myHeaders.append("Content-Type", "application/json");
+
+// var requestOptions = {
+//   method: 'GET',
+//   headers: myHeaders,
+//   redirect: 'follow'
+// };
+
+// fetch("https://api-nodejs-todolist.herokuapp.com/task/6310c5216131de001747800f", requestOptions)
+//   .then(response => response.text())
+//   .then(result => console.log(result))
+//   .catch(error => console.log('error', error));
+
+
+// UPDATE by ID
+// var myHeaders = new Headers();
+// myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzEwYmRiODYxMzFkZTAwMTc0NzdmZmEiLCJpYXQiOjE2NjIwNDIzMTF9.lJU9dhFVxEnbdkoYGOvFAx8lWQcjgUr1kJz7-toHUeo");
+// myHeaders.append("Content-Type", "application/json");
+
+// var raw = JSON.stringify({
+//   "completed": true
+// });
+
+// var requestOptions = {
+//   method: 'PUT',
+//   headers: myHeaders,
+//   body: raw,
+//   redirect: 'follow'
+// };
+
+// fetch("https://api-nodejs-todolist.herokuapp.com/task/6310c5216131de001747800f", requestOptions)
+//   .then(response => response.text())
+//   .then(result => console.log(result))
+//   .catch(error => console.log('error', error));
+
+
+
+
+
+
+// fetch('https://jsonplaceholder.typicode.com/todos')
+//     .then(res => res.json())
+//     .then(data => {
+//         console.log(data)
+//       todoArr = data.slice(0, 4);
+//       renderTodo();
+//   })
+
+// todoForm.addEventListener('submit', function(e){
+//     e.preventDefault()
+//     const todoInputValue = todoInput.value;
+//     const data = {
+//         title: todoInputValue
+//     }
+//     console.log(data)
+
+//     const options = {
+//         method: "POST",
+//         body: JSON.stringify(data),
+//         headers: {
+//             "Content-Type": "application/json"
+//         }
+//     }
+
+//     fetch('https://jsonplaceholder.typicode.com/todos', options)
+//         .then(res => res.json())
+//         .then(todo => {
+//             todoArr.push(todo)
+//             renderTodo()
+//             todoForm.reset()
+//         })
+// })

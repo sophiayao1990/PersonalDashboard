@@ -1,0 +1,39 @@
+post
+{
+    "success":true,
+    "data":{
+        "completed":false,
+        "_id":"6310c2746131de0017478007",
+        "description":"reading book",
+        "owner":"6310bdb86131de0017477ffa",
+        "createdAt":"2022-09-01T14:32:20.094Z",
+        "updatedAt":"2022-09-01T14:32:20.094Z",
+        "__v":0
+    }
+}
+
+
+get all
+{
+    "count":9,
+    "data":[
+        {
+            "completed":false,
+            "_id":"6310c22d6131de0017478006",
+            "description":"reading book",
+            "owner":"6310bdb86131de0017477ffa",
+            "createdAt":"2022-09-01T14:31:09.631Z",
+            "updatedAt":"2022-09-01T14:31:09.631Z","__v":0
+        },
+        {"completed":false,"_id":"6310c2746131de0017478007","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:32:20.094Z","updatedAt":"2022-09-01T14:32:20.094Z","__v":0},
+        {"completed":false,"_id":"6310c2e66131de0017478008","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:34:14.232Z","updatedAt":"2022-09-01T14:34:14.232Z","__v":0},
+        {"completed":false,"_id":"6310c3026131de0017478009","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:34:42.012Z","updatedAt":"2022-09-01T14:34:42.012Z","__v":0},
+        {"completed":false,"_id":"6310c3086131de001747800a","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:34:48.805Z","updatedAt":"2022-09-01T14:34:48.805Z","__v":0},
+        {"completed":false,"_id":"6310c31b6131de001747800b","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:35:07.695Z","updatedAt":"2022-09-01T14:35:07.695Z","__v":0},
+        {"completed":false,"_id":"6310c3206131de001747800c","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:35:12.574Z","updatedAt":"2022-09-01T14:35:12.574Z","__v":0},
+        {"completed":false,"_id":"6310c3286131de001747800d","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:35:20.303Z","updatedAt":"2022-09-01T14:35:20.303Z","__v":0},
+        {"completed":false,"_id":"6310c37b6131de001747800e","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:36:43.950Z","updatedAt":"2022-09-01T14:36:43.950Z","__v":0}
+        ]
+}
+
+{"count":9,"data":[{"completed":false,"_id":"6310c22d6131de0017478006","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:31:09.631Z","updatedAt":"2022-09-01T14:31:09.631Z","__v":0},{"completed":false,"_id":"6310c2746131de0017478007","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:32:20.094Z","updatedAt":"2022-09-01T14:32:20.094Z","__v":0},{"completed":false,"_id":"6310c2e66131de0017478008","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:34:14.232Z","updatedAt":"2022-09-01T14:34:14.232Z","__v":0},{"completed":false,"_id":"6310c3026131de0017478009","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:34:42.012Z","updatedAt":"2022-09-01T14:34:42.012Z","__v":0},{"completed":false,"_id":"6310c3086131de001747800a","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:34:48.805Z","updatedAt":"2022-09-01T14:34:48.805Z","__v":0},{"completed":false,"_id":"6310c31b6131de001747800b","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:35:07.695Z","updatedAt":"2022-09-01T14:35:07.695Z","__v":0},{"completed":false,"_id":"6310c3206131de001747800c","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:35:12.574Z","updatedAt":"2022-09-01T14:35:12.574Z","__v":0},{"completed":false,"_id":"6310c3286131de001747800d","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:35:20.303Z","updatedAt":"2022-09-01T14:35:20.303Z","__v":0},{"completed":false,"_id":"6310c37b6131de001747800e","description":"reading book","owner":"6310bdb86131de0017477ffa","createdAt":"2022-09-01T14:36:43.950Z","updatedAt":"2022-09-01T14:36:43.950Z","__v":0}]}
