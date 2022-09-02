@@ -134,10 +134,32 @@ let todoArr = [];
 function renderTodo() {
     todoList.innerHTML = '';
     for (let todo of todoArr) {
-        let todoId = todo._id;
-        todoList.innerHTML += `<li><input type="checkbox">  ${todo.description} <button onclick="deleteTodo('${todoId}')"><i class="fa-solid fa-trash-can"></i></button></li>`
-    } 
+        todoList.innerHTML += `<li>
+                                <input type="checkbox" id="${todo._id}" ${todo.completed ? "checked" : ""} onchange="handleChange('${todo._id}')" >  
+                                ${todo.description} 
+                                <button onclick="deleteTodo('${todo._id}')"><i class="fa-solid fa-trash-can"></i></button>
+                               </li>`
+    }
 }
+
+function handleChange(id) {
+    var raw = JSON.stringify({
+        "completed": document.getElementById(id).checked
+      });
+      
+      var requestOptions = {
+        method: 'PUT',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+      
+      fetch(`https://api-nodejs-todolist.herokuapp.com/task/${id}`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error))
+}
+
 
 //GET all todos
 var myHeaders = new Headers();
@@ -155,6 +177,7 @@ function getAllTodos() {
         .then(response => response.json())
         .then(result => {
           todoArr = result.data;
+          console.log(result.data)
           renderTodo();
           })
         .catch(error => console.log('error', error));
@@ -198,41 +221,5 @@ function deleteTodo(id) {
     
 }
 
-//GET task by ID
-// var myHeaders = new Headers();
-// myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzEwYmRiODYxMzFkZTAwMTc0NzdmZmEiLCJpYXQiOjE2NjIwNDIzMTF9.lJU9dhFVxEnbdkoYGOvFAx8lWQcjgUr1kJz7-toHUeo");
-// myHeaders.append("Content-Type", "application/json");
-
-// var requestOptions = {
-//   method: 'GET',
-//   headers: myHeaders,
-//   redirect: 'follow'
-// };
-
-// fetch("https://api-nodejs-todolist.herokuapp.com/task/6310c5216131de001747800f", requestOptions)
-//   .then(response => response.text())
-//   .then(result => console.log(result))
-//   .catch(error => console.log('error', error));
-
-
 // UPDATE by ID
-// var myHeaders = new Headers();
-// myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzEwYmRiODYxMzFkZTAwMTc0NzdmZmEiLCJpYXQiOjE2NjIwNDIzMTF9.lJU9dhFVxEnbdkoYGOvFAx8lWQcjgUr1kJz7-toHUeo");
-// myHeaders.append("Content-Type", "application/json");
-
-// var raw = JSON.stringify({
-//   "completed": true
-// });
-
-// var requestOptions = {
-//   method: 'PUT',
-//   headers: myHeaders,
-//   body: raw,
-//   redirect: 'follow'
-// };
-
-// fetch("https://api-nodejs-todolist.herokuapp.com/task/6310c5216131de001747800f", requestOptions)
-//   .then(response => response.text())
-//   .then(result => console.log(result))
-//   .catch(error => console.log('error', error));
 
