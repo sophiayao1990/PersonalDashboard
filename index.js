@@ -18,7 +18,9 @@ setInterval(function () {
     main.style.backgroundImage = `url(images/${backgroundImageList[backgroundImageListIndex]}.jpg)`;
 }, 5000);
 
-
+/**crypto & stock section
+ * This is the code for both the crypto and stock section
+ */
 //Crypto
 function getCurrentCrypto(coinName, coinElementId) {
     fetch(`https://api.coingecko.com/api/v3/coins/${coinName}`)
@@ -29,17 +31,17 @@ function getCurrentCrypto(coinName, coinElementId) {
             return res.json();
         })
         .then(data => {
-            let change24h = data.market_data.price_change_percentage_24h;
+            let coinChange24h = data.market_data.price_change_percentage_24h;
             document.getElementById(coinElementId).innerHTML = `
             <h4 class="col">${data.name}</h4>
             <p class="col">$${data.market_data.current_price.usd.toFixed(2)}</p>
-            <span id='${coinName}-change24h' class="col">${change24h.toFixed(2)}%</span>        
+            <span id='${coinName}-change24h' class="col">${coinChange24h.toFixed(2)}%</span>        
         `
             const change = document.getElementById(`${coinName}-change24h`);
 
-            if (change24h > 0) {
+            if (coinChange24h > 0) {
                 change.style.color = "green";
-            } else if (change24h < 0) {
+            } else if (coinChange24h < 0) {
                 change.style.color = "red";
             } else {
                 change.style.color = "black";
@@ -49,8 +51,8 @@ function getCurrentCrypto(coinName, coinElementId) {
 }
 getCurrentCrypto("bitcoin", "btc");
 getCurrentCrypto("ethereum", "eth");
-setInterval(getCurrentCrypto("bitcoin","btc"), 50000)
-setInterval(getCurrentCrypto("ethereum","eth"), 50000)
+setInterval(() => getCurrentCrypto("bitcoin","btc"), 50000)
+setInterval(() => getCurrentCrypto("ethereum","eth"), 50000)
 
 function getCurrentStock(stockName, stockElementId) {
     fetch(`http://api.marketstack.com/v1/intraday?access_key=803f599c990fd6a341af3c4c79f174b8&symbols=${stockName}`)
@@ -81,8 +83,8 @@ function getCurrentStock(stockName, stockElementId) {
 }
 getCurrentStock("AAPL", "aapl");
 getCurrentStock("TSLA", "tsla");
-setInterval(getCurrentStock("AAPL","aapl"), 50000)
-setInterval(getCurrentStock("TSLA","tsla"), 50000)
+setInterval(() => getCurrentStock("AAPL","aapl"), 50000)
+setInterval(() => getCurrentStock("TSLA","tsla"), 50000)
 
 
 
