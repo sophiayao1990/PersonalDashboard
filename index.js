@@ -22,6 +22,17 @@ setInterval(function () {
  * This is the code for both the crypto and stock section
  */
 //Crypto
+
+//font color change based on the price change
+function fontColorChange(change, elementId) {
+    if (change > 0) {
+        document.getElementById(elementId).style.color = "green";
+    } else if (change < 0) {
+        document.getElementById(elementId).style.color = "red";
+    } else {
+        document.getElementById(elementId).style.color = "black";
+    }
+}
 function getCurrentCrypto(coinName, coinElementId) {
     fetch(`https://api.coingecko.com/api/v3/coins/${coinName}`)
         .then(res => {
@@ -35,17 +46,10 @@ function getCurrentCrypto(coinName, coinElementId) {
             document.getElementById(coinElementId).innerHTML = `
             <h4 class="col">${data.name}</h4>
             <p class="col">$${data.market_data.current_price.usd.toFixed(2)}</p>
-            <span id='${coinName}-change24h' class="col">${coinChange24h.toFixed(2)}%</span>        
+            <span id='coinChange24h-${coinName}' class="col">${coinChange24h.toFixed(2)}%</span>        
         `
-            const change = document.getElementById(`${coinName}-change24h`);
+            fontColorChange(coinChange24h, `coinChange24h-${coinName}`)
 
-            if (coinChange24h > 0) {
-                change.style.color = "green";
-            } else if (coinChange24h < 0) {
-                change.style.color = "red";
-            } else {
-                change.style.color = "black";
-            }
         })
         .catch(err => console.error(err));
 }
@@ -64,21 +68,13 @@ function getCurrentStock(stockName, stockElementId) {
         })
         .then(data => {
             // console.log(data)
-            const change24h = (data.data[0].close - data.data[0].open) / data.data[0].open
+            const stockChange24h = (data.data[0].close - data.data[0].open) / data.data[0].open
             document.getElementById(stockElementId).innerHTML = `
             <h4 class="col">${data.data[0].symbol}</h4>
             <p class="col">$${data.data[0].open.toFixed(2)}</p>
-            <span id="${stockName}-change24h" class="col">${change24h.toFixed(2)}%</span>        
+            <span id="stockChange24h-${stockName}" class="col">${stockChange24h.toFixed(2)}%</span>        
         `
-            const change = document.getElementById(`${stockName}-change24h`);
-
-            if (change24h > 0) {
-                change.style.color = "green";
-            } else if (change24h < 0) {
-                change.style.color = "red";
-            } else {
-                change.style.color = "black";
-            }
+        fontColorChange(stockChange24h, `stockChange24h-${stockName}`)
         })
 }
 getCurrentStock("AAPL", "aapl");
