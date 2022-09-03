@@ -4,16 +4,18 @@ const todoInput = document.getElementById('todo-input');
 const todoForm = document.getElementById('todo-form');
 const main = document.getElementById('main')
 
-//background
-const images = ['olivia1', 'olivia2', 'olivia3'];
-main.style.backgroundImage = `url(images/olivia3.jpg)`;
+/** background section
+ * This is the code section for background
+ */
+
+// backaground image list
+const backgroundImageList = ['olivia1', 'olivia2', 'olivia3'];
+let backgroundImageListIndex = 0;
+//default background image
+main.style.backgroundImage = `url(images/${backgroundImageList[backgroundImageListIndex]}.jpg)`;
 setInterval(function () {
-    let i = 0;
-    main.style.backgroundImage = `url(images/${images[i]}.jpg)`;
-    i += 1;
-    if (i == images.length) {
-        i = 0;
-    }
+    backgroundImageListIndex = (backgroundImageListIndex + 1) % backgroundImageList.length;
+    main.style.backgroundImage = `url(images/${backgroundImageList[backgroundImageListIndex]}.jpg)`;
 }, 5000);
 
 
@@ -47,8 +49,8 @@ function getCurrentCrypto(coinName, coinElementId) {
 }
 getCurrentCrypto("bitcoin", "btc");
 getCurrentCrypto("ethereum", "eth");
-// setInterval(getCurrentCrypto("bitcoin","btc"), 50000)
-// setInterval(getCurrentCrypto("ethereum","eth"), 50000)
+setInterval(getCurrentCrypto("bitcoin","btc"), 50000)
+setInterval(getCurrentCrypto("ethereum","eth"), 50000)
 
 function getCurrentStock(stockName, stockElementId) {
     fetch(`http://api.marketstack.com/v1/intraday?access_key=803f599c990fd6a341af3c4c79f174b8&symbols=${stockName}`)
@@ -79,8 +81,8 @@ function getCurrentStock(stockName, stockElementId) {
 }
 getCurrentStock("AAPL", "aapl");
 getCurrentStock("TSLA", "tsla");
-// setInterval(getCurrentStock("AAPL","aapl"), 50000)
-// setInterval(getCurrentStock("TSLA","tsla"), 50000)
+setInterval(getCurrentStock("AAPL","aapl"), 50000)
+setInterval(getCurrentStock("TSLA","tsla"), 50000)
 
 
 
