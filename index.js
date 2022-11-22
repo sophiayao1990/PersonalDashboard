@@ -62,7 +62,7 @@ setInterval(() => getCurrentCrypto("ethereum", "eth"), 50000);
 
 function getCurrentStock(stockName, stockElementId) {
   fetch(
-    `http://api.marketstack.com/v1/intraday?access_key=803f599c990fd6a341af3c4c79f174b8&symbols=${stockName}`
+    `https://api.marketstack.com/v1/intraday?access_key=803f599c990fd6a341af3c4c79f174b8&symbols=${stockName}`
   )
     .then((res) => {
       if (!res.ok) {
@@ -92,7 +92,7 @@ setInterval(() => getCurrentStock("TSLA", "tsla"), 50000);
 //Weather
 navigator.geolocation.getCurrentPosition((position) => {
   fetch(
-    `http://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=957f77f95dfed1a4157a09f091cd5673&units=metric`
+    `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=957f77f95dfed1a4157a09f091cd5673&units=metric`
   )
     .then((res) => {
       if (!res.ok) {
@@ -101,7 +101,7 @@ navigator.geolocation.getCurrentPosition((position) => {
       return res.json();
     })
     .then((data) => {
-      const weatherIconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+      const weatherIconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
       weather.innerHTML = `
             <img src=${weatherIconUrl} />
             <p>${data.weather[0].main}</p>
